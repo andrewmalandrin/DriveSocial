@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.del_m.drivesocial.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/gradient"
+            >
+
+            <ImageView
+                android:id="@+id/imgTitulo"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="60dp"
+                android:fontFamily="cursive"
+                android:textColor="#ffff"
+                android:text="Drive Social" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/corpo"
+            android:layout_width="match_parent"
+            android:layout_height="320dp">
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/barraTarefas"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@drawable/gradient1"
+            >
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
