@@ -25,9 +25,10 @@ import java.util.HashMap;
 
 public class AssistentActivity extends Activity implements TextToSpeech.OnInitListener{
 
-    protected static final int RESULT_SPEECH = 0;
-    protected static final int CONFIRMA_ENVIO = 1;
-    protected static final int ESCOLHER_DESTINO = 2;
+    protected static final int USER_REQUEST = 0;
+    protected static final int CONFIRM_USER = 1;
+    protected static final int CONFIRM_SEND = 3;
+    protected static final int MESSAGE_REQUEST = 2;
 
     Button btnLogoff;
     ImageView btnWhatsapp;
@@ -81,122 +82,8 @@ public class AssistentActivity extends Activity implements TextToSpeech.OnInitLi
         Intent intent_wspeech = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "pt-BR");
         intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
-        startActivityForResult(intent_wspeech, RESULT_SPEECH);
+        startActivityForResult(intent_wspeech, USER_REQUEST);
 
-
-
-       /* Thread messageRequester = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-
-
-                    shandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-
-
-                            String audio = getString(R.string.whatsapp_send);
-                            falaAssistent.animateText(getString(R.string.nulo));
-                            audioAssistent.speak(audio, TextToSpeech.QUEUE_FLUSH, null);
-
-
-
-
-                        }
-                    });
-
-
-
-
-
-            }
-        });
-
-        final Thread getAudio = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                shandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        Intent intent_wspeech = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                        intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "pt-BR");
-                        intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
-                        startActivityForResult(intent_wspeech, RESULT_SPEECH);
-
-                    }
-                });
-            }
-
-        });
-
-        final Thread confirmRequester = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try{
-                    getAudio.join();
-
-                }catch (InterruptedException e){
-
-                    Context context = getApplicationContext();
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast interrupt = Toast.makeText(context, "Recepção de áudio interrompida.", duration );
-                    interrupt.show();
-
-                }
-                shandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        audioAssistent.speak((mensagem), TextToSpeech.QUEUE_ADD, null);
-                        audioAssistent.speak((confirma), TextToSpeech.QUEUE_ADD, null);
-
-                    }
-                });
-
-
-            }
-        });
-
-        Thread getConfirm = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                try{
-                    confirmRequester.join();
-
-                }catch (InterruptedException e){
-
-                    Context context = getApplicationContext();
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast interrupt = Toast.makeText(context, "Fala da assistente interrompida .", duration );
-                    interrupt.show();
-
-                }
-
-
-                shandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        Intent intent_wspeech = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-                        intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "pt-BR");
-                        intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
-                        startActivityForResult(intent_wspeech, RESULT_SPEECH);
-
-                    }
-                });
-            }
-
-        });
-
-        messageRequester.start();
-        getAudio.start();
-        confirmRequester.start();
-        getConfirm.start();
-        */
 
     }
 
@@ -209,15 +96,45 @@ public class AssistentActivity extends Activity implements TextToSpeech.OnInitLi
             mensagem = texto.get(0);
 
 
-            if (requestCode == ESCOLHER_DESTINO){
 
+
+            if (requestCode == USER_REQUEST){
+
+                wmensagem = mensagem;
+
+                audioAssistent.speak(("enviar mensagem para"+mensagem), TextToSpeech.QUEUE_ADD, null);
+                audioAssistent.speak((confirma), TextToSpeech.QUEUE_ADD, null);
+
+                while (audioAssistent.isSpeaking()) {
+
+                }
+
+                confirmUser();
+
+            }
+
+            if (requestCode == CONFIRM_USER){
+
+                if (mensagem.equals("confirmar") || mensagem.equals("confirma")){
+
+                    audioAssistent.speak(("Por favor, dite a mensagem que deve ser enviada."), TextToSpeech.QUEUE_ADD, null);
+
+                    while (audioAssistent.isSpeaking()) {
+
+                    }
+
+                    messageRequest();
+
+                }else{
+
+                    audioAssistent.speak("Cancelando o envio.",TextToSpeech.QUEUE_ADD, null);
+
+                }
 
 
             }
 
-            if (requestCode == RESULT_SPEECH){
-
-                wmensagem = mensagem;
+            if (requestCode == MESSAGE_REQUEST){
 
                 audioAssistent.speak((mensagem), TextToSpeech.QUEUE_ADD, null);
                 audioAssistent.speak((confirma), TextToSpeech.QUEUE_ADD, null);
@@ -226,11 +143,13 @@ public class AssistentActivity extends Activity implements TextToSpeech.OnInitLi
 
                 }
 
-                confirmaEnvio();
+                confirmSend();
+
 
             }
 
-            if (requestCode == CONFIRMA_ENVIO){
+
+            if (requestCode == CONFIRM_SEND){
 
 
                 if (mensagem.equals("confirmar")|| mensagem.equals("confirma") || mensagem.equals("manda logo essa porra")) {
@@ -260,20 +179,28 @@ public class AssistentActivity extends Activity implements TextToSpeech.OnInitLi
     }
 
 
-    public void confirmaEnvio(){
+    public void confirmUser(){
 
         Intent intent_wspeech = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "pt-BR");
-        startActivityForResult(intent_wspeech, CONFIRMA_ENVIO);
+        startActivityForResult(intent_wspeech, CONFIRM_USER);
+
+
+    }
+    public void confirmSend(){
+
+        Intent intent_wspeech = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "pt-BR");
+        startActivityForResult(intent_wspeech, CONFIRM_SEND);
 
 
     }
 
-    public void escolherDestino(){
+    public void messageRequest(){
 
         Intent intent_wspeech = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent_wspeech.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "pt-BR");
-        startActivityForResult(intent_wspeech, ESCOLHER_DESTINO);
+        startActivityForResult(intent_wspeech, MESSAGE_REQUEST);
 
 
     }

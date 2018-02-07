@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Drive Social</string>
     <string name="assistent_presentation">Seja bem vindo ao Drive Social.</string>
-    <string name="whatsapp_send">Dite a mensagem que será enviada.</string>
+    <string name="whatsapp_send">Fala com quem ce quer fala parça.</string>
     <string name="confirma_envio"> Diga confirmar para continuar. </string>
     <string name="nulo"> </string>
 </resources>
