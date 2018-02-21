@@ -11,110 +11,75 @@
         android:layout_height="match_parent"
         >
 
-        <LinearLayout
-            android:id="@+id/tituloLayout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/gradient"
-            >
-
-            <ImageView
-                android:id="@+id/imgTitulo"
-                android:layout_width="80dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="4dp"
-                android:src="@drawable/logo" />
-
-            <TextView
-                android:id="@+id/titulo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="60dp"
-                android:fontFamily="cursive"
-                android:textColor="#ffff"
-                android:text="Drive Social" />
-        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/corpo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/barraTarefas"
-            android:layout_below="@id/tituloLayout"
-            >
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/gradient">
 
-            <com.example.del_m.drivesocial.Typewriter
-                android:id="@+id/falaAssistent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_alignParentTop="true"
-                android:textColor="#0115ae"
-                android:textSize="25dp"/>
-
-            <ImageView
-                android:id="@+id/imgAssistente"
-                android:layout_width="220dp"
-                android:layout_height="220dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/secretaria" />
 
             <Button
                 android:id="@+id/btnLogoff"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginBottom="11dp"
-                android:layout_marginStart="18dp"
-                android:background="@drawable/gradient"
-                android:textColor="#ffff"
+                android:layout_height="40sp"
+                android:layout_alignParentRight="true"
+                android:alpha="0.7"
+                android:background="@null"
+                android:onClick="logoff"
                 android:text="Logoff"
-                android:onClick="logoff"/>
-        </RelativeLayout>
+                android:textColor="#ffff" />
 
-
-        <RelativeLayout
-            android:id="@+id/barraTarefas"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:background="@drawable/gradient1"
-            android:layout_alignParentBottom="true"
-            >
-
-            <ImageView
-                android:id="@+id/btnFalar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_centerInParent="true"
-                android:textSize="20dp"
-                android:textColor="#ffff"
-                android:src="@drawable/speech_widget"/>
 
             <ImageView
                 android:id="@+id/btnWhatsapp"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="40dp"
-                android:src="@drawable/whatsapp_icon"
-                android:onClick="whatsappsend"/>
+                android:layout_height="150sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:onClick="whatsappsend"
+                android:src="@drawable/whatsapp_icon" />
+
+            <TextClock
+                android:id="@+id/textClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="09:45"
+                android:textColor="#FFFFFF"
+                android:textSize="110sp" />
 
             <ImageView
-                android:id="@+id/btnFacebook"
+                android:id="@+id/btnMenu"
                 android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="40dp"
-                android:src="@drawable/facebook_icon" />
+                android:layout_height="40dp"
+                android:src="@drawable/menu_icon_mobile_hip"
+                android:alpha="0.7"/>
+
+            <TextView
+                android:id="@+id/temperatureText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/btnMenu"
+                android:textSize="40sp"
+                android:textColor="#fff"
+                android:layout_below="@id/btnMenu"
+                android:text="25º" />
+
+            <ImageView
+                android:id="@+id/weatherWidget"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:layout_toRightOf="@id/temperatureText"
+                android:layout_marginLeft="5sp"
+                android:layout_below="@id/btnMenu"
+                android:src="@drawable/ic_cloudy_whites_quare" />
+
 
         </RelativeLayout>
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

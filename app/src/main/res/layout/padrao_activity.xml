@@ -47,7 +47,7 @@
             android:id="@+id/barraTarefas"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:background="@drawable/gradient1"
+            android:background="@drawable/day_cloudy_bg"
             >
 
 
